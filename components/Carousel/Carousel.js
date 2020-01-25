@@ -17,3 +17,66 @@
     <div class="right-button"> > </div>
   </div>
 */
+
+function Carousel() {
+	const carousel = document.createElement('div');
+	const leftButton = document.createElement('div');
+	const carouselImg1 = document.createElement('img');
+	const carouselImg2 = document.createElement('img');
+	const carouselImg3 = document.createElement('img');
+	const carouselImg4 = document.createElement('img');
+	const rightButton = document.createElement('div');
+
+	carousel.classList.add('carousel');
+	leftButton.classList.add('left-button');
+	rightButton.classList.add('right-button');
+
+	carouselImg1.setAttribute('src', './assets/carousel/mountains.jpeg');
+	carouselImg2.setAttribute('src', './assets/carousel/computer.jpeg');
+	carouselImg3.setAttribute('src', './assets/carousel/trees.jpeg');
+	carouselImg4.setAttribute('src', './assets/carousel/turntable.jpeg');
+
+	carousel.appendChild(leftButton);
+	carousel.appendChild(carouselImg1);
+	carousel.appendChild(carouselImg2);
+	carousel.appendChild(carouselImg3);
+	carousel.appendChild(carouselImg4);
+	carousel.appendChild(rightButton);
+
+	return carousel;
+}
+
+const carouselElement = Carousel();
+document.querySelector('.carousel-container').appendChild(carouselElement);
+
+// Functionality
+
+const carouselImgages = document.querySelectorAll('img');
+
+let slideIndex = 1;
+
+function showSlides(index) {
+	for (let i = 0; i < carouselImgages.length; i++) {
+		carouselImgages[i].style.display = 'none';
+	}
+	carouselImgages[slideIndex - 1].style.display = 'block';
+}
+
+showSlides(slideIndex);
+
+const leftButton = document.querySelector('.left-button');
+const rightButton = document.querySelector('.right-button');
+
+rightButton.addEventListener('click', () => {
+	if (slideIndex < carouselImgages.length) {
+		slideIndex++;
+		showSlides(slideIndex);
+	} else {
+		slideIndex = 1;
+		showSlides(slideIndex);
+	}
+});
+
+// leftButton.addEventListener('click', () => {
+
+// });
