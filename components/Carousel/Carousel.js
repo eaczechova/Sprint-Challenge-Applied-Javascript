@@ -70,13 +70,17 @@ const rightButton = document.querySelector('.right-button');
 rightButton.addEventListener('click', () => {
 	if (slideIndex < carouselImgages.length) {
 		slideIndex++;
-		showSlides(slideIndex);
 	} else {
 		slideIndex = 1;
-		showSlides(slideIndex);
 	}
+	showSlides(slideIndex);
 });
 
-// leftButton.addEventListener('click', () => {
-
-// });
+leftButton.addEventListener('click', () => {
+	if (slideIndex === 1) {
+		slideIndex = carouselImgages.length;
+	} else {
+		slideIndex = slideIndex - 1;
+	}
+	showSlides(slideIndex);
+});
