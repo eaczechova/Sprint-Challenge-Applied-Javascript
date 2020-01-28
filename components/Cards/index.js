@@ -17,3 +17,45 @@
 // </div>
 //
 // Create a card for each of the articles and add the card to the DOM.
+
+const cardsContainer = document.querySelector('.cards-container');
+
+axios
+	.get('https://lambda-times-backend.herokuapp.com/articles')
+	.then(response => {
+		const articlesTopics = Object.entries(response.data.articles);
+		for (let i = 0; i < articlesTopics.length; i++) {
+			articlesTopics[i][1].forEach(data => {
+				const newArticle = article(data);
+				cardsContainer.appendChild(newArticle);
+			});
+		}
+	})
+	.catch(err => console.log('Error:', err));
+
+const article = data => {
+	const article = document.createElement('div');
+	const articleHeadline = document.createElement('div');
+	const articleAuthor = document.createElement('div');
+	const articleImgContainer = document.createElement('div');
+	const articleImg = document.createElement('img');
+	const articleImgCaption = document.createElement('span');
+
+	article.classList.add('card');
+	articleHeadline.classList.add('headline');
+	articleAuthor.classList.add('author');
+	articleImgContainer.classList.add('img-container');
+
+	articleHeadline.textContent = data.headline;
+	articleImg.setAttribute('src', data.authorPhoto);
+	articleImgCaption.textContent = data.authorName;
+
+	article.appendChild(articleHeadline);
+	article.appendChild(articleAuthor);
+
+	articleAuthor.appendChild(articleImgContainer);
+	articleImgContainer.appendChild(articleImg);
+	articleAuthor.appendChild(articleImgCaption);
+
+	return article;
+};
